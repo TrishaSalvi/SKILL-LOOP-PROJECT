@@ -1,6 +1,6 @@
-import mongoose, {models, Schema} from "mongoose";
+import mongoose from "mongoose";
 
-const skillSchema= new Schema(
+const skillSchema= new mongoose.Schema(
     {
         title: {
             type: String,
@@ -37,7 +37,7 @@ const skillSchema= new Schema(
             default: ""
         },
         teacher: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
         },

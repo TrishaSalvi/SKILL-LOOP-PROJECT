@@ -18,16 +18,16 @@ const publicUser= (user) => ({
     totalReviews: user.totalReviews
 });
 
-export const registerUser= async (req, resizeBy, next) => {
+export const registerUser= async (req, res, next) => {
   try {
     const {name,email,password, department, year} = req.body;
     if( !name || !email || !password) {
-        req.status(400);
+        res.status(400);
         throw new Error("name, email and password is required");
     }
     const existingUser= await User.findOne({email});
     if( existingUser) {
-        req.status(400);
+        res.status(400);
         throw new Error("user email already exists!");
     }
     const user= await User.create({name, email, password, department, year});
@@ -40,7 +40,7 @@ export const registerUser= async (req, resizeBy, next) => {
         description: "Welcome dear User! Initial Credits added to your Skill-loop wallet",
     });
 
-    req.status(201).json({
+    res.status(201).json({
         user: publicUser(user),
         wallet,
         token: generateToken(user._id)

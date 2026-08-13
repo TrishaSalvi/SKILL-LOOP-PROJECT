@@ -57,11 +57,11 @@ export const loginUser= async( req, res, next) => {
 
     const user= await User.findOne({email});
     if(!user || !(await user.matchPassword(password))) {
-        req.status(401);
+        res.status(401);
         throw new Error("eithe user does not exist or invalid password!");
     }
 
-    req.json({
+    res.json({
         user: publicUser(user),
         token: generateToken(user._id)
     });
@@ -72,7 +72,7 @@ export const loginUser= async( req, res, next) => {
 };
 
 export const getMe= async(req,res) => {
-   req.json({user: publicUser(req.user)});
+   res.json({user: publicUser(req.user)});
 };
 
 export const updateProfile= async(req, res, next)=> {

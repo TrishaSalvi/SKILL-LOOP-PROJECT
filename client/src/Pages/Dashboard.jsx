@@ -13,7 +13,8 @@ export default function Dashboard() {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    const load = async () => {
+  const load = async () => {
+    try {
       const [walletRes, bookingsRes, skillsRes] = await Promise.all([
         api.get("/wallet"),
         api.get("/bookings/mine"),
@@ -23,11 +24,15 @@ export default function Dashboard() {
       setWallet(walletRes.data);
       setBookings(bookingsRes.data);
       setSkills(skillsRes.data);
+    } catch (error) {
+      console.error("Dashboard load failed:", error);
+    } finally {
       setLoading(false);
-    };
+    }
+  };
 
-    load();
-  }, []);
+  load();
+}, []);
 
   if (loading) return <Loading />;
 

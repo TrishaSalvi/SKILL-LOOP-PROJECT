@@ -51,6 +51,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;
+//console.log("Auth routes mounted at /api/auth");
 httpServer.listen(PORT, () => {
   console.log(`SkillLoop server running on port ${PORT}`);
 });

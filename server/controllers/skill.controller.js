@@ -22,7 +22,7 @@ export const getSkills= async (req,res,next) => {
        .populate("teacher","name department year ratingAvg totalReviews")
        .sort( { createdAt: -1 });
 
-     req.json(skills);
+     res.json(skills);
    }
    catch(error) {
     next(error);
@@ -47,12 +47,12 @@ export const getSkillById= async (req,res,next) => {
     }
 };
 
-export const getMySkills= async (req,res,next) => {
+export const getMySkills = async (req, res, next) => {
     try {
-        const skills= (await Skill.find( { teacher: req.user._id })).toSorted( { createdAt: -1});
+        const skills = await Skill.find({ teacher: req.user._id }).sort({ createdAt: -1 });
         res.json(skills);
     }
-    catch(error) {
+    catch (error) {
         next(error);
     }
 };
